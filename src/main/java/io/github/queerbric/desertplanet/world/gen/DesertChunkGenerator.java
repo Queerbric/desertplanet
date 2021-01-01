@@ -88,9 +88,18 @@ public class DesertChunkGenerator extends ChunkGenerator {
 
 				int localX = startX + x;
 				int localZ = startZ + z;
-				int height = chunk.sampleHeightmap(Heightmap.Type.WORLD_SURFACE_WG, x, z) + 1;
-				double noise = this.surfaceDepthNoise.sample((double) localX * 0.0625D, (double) localZ * 0.0625D, 0.0625D, (double) x * 0.0625D) * 15.0D;
-				region.getBiome(mutable.set(startX + x, height, startZ + z)).buildSurface(chunkRandom, chunk, localX, localZ, height, noise, STONE, WATER, this.getSeaLevel(), region.getSeed());
+				int height = chunk.sampleHeightmap(Heightmap.Type.WORLD_SURFACE_WG, x, z);
+				for (int y = height; y > 0; y--) {
+					BlockState state = Blocks.STONE.getDefaultState();
+
+					if (y >= 60) {
+						state = Blocks.SAND.getDefaultState();
+					} else if (y >= 50) {
+						state = Blocks.SANDSTONE.getDefaultState();
+					}
+
+					region.setBlockState(mutable.set(localX, y, localZ), state, 3);
+				}
 			}
 		}
 	}
