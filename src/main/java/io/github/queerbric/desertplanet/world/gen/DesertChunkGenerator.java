@@ -11,6 +11,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.noise.OctaveSimplexNoiseSampler;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.world.BlockView;
@@ -117,19 +118,19 @@ public class DesertChunkGenerator extends ChunkGenerator {
 		double localZ = z / 75.0;
 
 		double radiusSq = localX * localX + localZ * localZ;
-		double noise = this.craterSampler.eval(x / 12.5, z / 12.5) * 0.25;
+		double noise = this.craterSampler.eval(x / 20.0, z / 20.0) * 0.25;
 
 		radiusSq += noise;
 
 		if (radiusSq <= 1) {
-			return (radiusSq * radiusSq * radiusSq) * 8;
+			return (1.75 * (radiusSq * radiusSq) - 0.75) * 12;
 		} else {
-			double craterDropOff = 8.0 / (radiusSq * radiusSq * radiusSq * radiusSq);
+			double craterDropOff = 12.0 / (radiusSq * radiusSq * radiusSq * radiusSq);
 			double duneAmplitude = Math.max(1 - craterDropOff, 0);
 
 			double duneHeight = (this.duneHeightSampler.eval(x / 50.0, z / 50.0) + 1) / 2;
 
-			double dune = (1 - Math.abs(this.duneSampler.eval((x + this.warpX.eval(x / 10.0, z / 10.0)) / 30.0, (z + this.warpZ.eval(x / 10.0, z / 10.0)) / 30.0))) * (6 + duneHeight * 14) - 3;
+			double dune = (1 - Math.abs(this.duneSampler.eval((x + this.warpX.eval(x / 15.0, z / 15.0)) / 60.0, (z + this.warpZ.eval(x / 15.0, z / 15.0)) / 60.0))) * (6 + duneHeight * 14) - 3;
 
 			return craterDropOff + (dune * duneAmplitude);
 		}
