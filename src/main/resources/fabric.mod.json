@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "desertplanet",
+  "version": "${version}",
+  "name": "DesertPlanet",
+  "description": "Tweaks for the modpack",
+  "authors": [
+    "Queerbric"
+  ],
+  "contact": {},
+  "license": "LGPL-3.0",
+  "icon": "assets/desertplanet/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "io.github.queerbric.desertplanet.client.DesertplanetClient"
+    ],
+    "main": [
+      "io.github.queerbric.desertplanet.Desertplanet"
+    ]
+  },
+  "mixins": [
+    "desertplanet.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.10.8",
+    "fabric": "*",
+    "minecraft": "1.16.4"
+  }
+}
