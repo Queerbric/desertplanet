@@ -134,14 +134,12 @@ public class DesertChunkGenerator extends ChunkGenerator {
 		if (radiusSq <= 1) {
 			return (1.75 * (radiusSq * radiusSq) - 0.75) * 12;
 		} else {
-			double craterDropOff = 12.0 / (radiusSq * radiusSq * radiusSq * radiusSq);
-			double duneAmplitude = Math.max(1 - craterDropOff, 0);
+			double craterDropOff = 12.0 / (radiusSq * radiusSq);
 
 			double duneHeight = (this.duneHeightSampler.eval(x / 50.0, z / 50.0) + 1) / 2;
-
 			double dune = (1 - Math.abs(this.duneSampler.eval((x + this.warpX.eval(x / 15.0, z / 15.0)) / 60.0, (z + this.warpZ.eval(x / 15.0, z / 15.0)) / 60.0))) * (6 + duneHeight * 14) - 3;
 
-			return craterDropOff + (dune * duneAmplitude);
+			return Math.max(craterDropOff, dune);
 		}
 	}
 
