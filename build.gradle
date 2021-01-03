@@ -11,6 +11,10 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
+    maven {
+        name = "Ladysnake Libs"
+        url = "https://dl.bintray.com/ladysnake/libs"
+    }
     maven { url = "https://jitpack.io" }
 }
 
@@ -29,6 +33,11 @@ dependencies {
 
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
     // You may need to force-disable transitiveness on them.
+
+    // Cardinal Components
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.cc_version}"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-util:${project.cc_version}"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.cc_version}"
 
     // Databreaker
     modRuntime ("com.github.SuperCoder7979:databreaker:0.2.6") {
