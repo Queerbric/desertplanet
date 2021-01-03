@@ -13,10 +13,10 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "io.github.queerbric.desertplanet.client.DesertplanetClient"
+      "io.github.queerbric.desertplanet.client.DesertPlanetClient"
     ],
     "main": [
-      "io.github.queerbric.desertplanet.Desertplanet"
+      "io.github.queerbric.desertplanet.DesertPlanet"
     ]
   },
   "mixins": [

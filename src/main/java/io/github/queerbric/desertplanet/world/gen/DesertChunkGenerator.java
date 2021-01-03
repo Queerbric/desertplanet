@@ -138,6 +138,7 @@ public class DesertChunkGenerator extends ChunkGenerator {
 
 			double duneHeight = (this.duneHeightSampler.eval(x / 50.0, z / 50.0) + 1) / 2;
 			double dune = (1 - Math.abs(this.duneSampler.eval((x + this.warpX.eval(x / 15.0, z / 15.0)) / 60.0, (z + this.warpZ.eval(x / 15.0, z / 15.0)) / 60.0))) * (6 + duneHeight * 14) - 3;
+			// TODO: sign based falloff so one side is gentler than the other simulating wind formations
 
 			return Math.max(craterDropOff, dune);
 		}

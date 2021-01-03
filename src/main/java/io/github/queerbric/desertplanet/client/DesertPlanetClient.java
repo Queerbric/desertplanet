@@ -5,7 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
-public class DesertplanetClient implements ClientModInitializer {
+public class DesertPlanetClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 
