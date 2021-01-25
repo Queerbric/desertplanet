@@ -17,6 +17,14 @@
     ],
     "main": [
       "io.github.queerbric.desertplanet.DesertPlanet"
+    ],
+    "cardinal-components": [
+      "io.github.queerbric.desertplanet.DesertPlanetComponents"
+    ]
+  },
+  "custom": {
+    "cardinal-components": [
+      "desertplanet:temperature"
     ]
   },
   "mixins": [
