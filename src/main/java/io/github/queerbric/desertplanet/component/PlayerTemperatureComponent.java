@@ -2,6 +2,7 @@ package io.github.queerbric.desertplanet.component;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.math.MathHelper;
 
 public class PlayerTemperatureComponent implements TemperatureComponent {
 	private double temperature = 50;
@@ -12,6 +13,11 @@ public class PlayerTemperatureComponent implements TemperatureComponent {
 	@Override
 	public double getTemperature() {
 		return this.temperature;
+	}
+
+	@Override
+	public void setTemperature(double temperature) {
+		this.temperature = MathHelper.clamp(temperature, 0, 100);
 	}
 
 	@Override
