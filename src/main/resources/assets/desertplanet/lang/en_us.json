@@ -2,8 +2,14 @@
   "generator.desertplanet": "Desert Planet",
 
   "item.desertplanet.photo": "Photo of your friends",
+  "item.desertplanet.thermometer": "Thermometer",
 
   "tooltip.photo.1": "A photo of you and your friends in a simpler time.",
   "tooltip.photo.2": "You miss them.",
-  "tooltip.reduces_stress": "[Reduces Stress]"
+  "tooltip.thermometer": "Right click to measure your body temperature.",
+
+  "message.thermometer": "Your body temperature is %sU",
+
+  "tooltip.reduces_stress": "[Reduces Stress]",
+  "tooltip.reduces_temp": "[Reduces Temperature]"
 }
