@@ -1,8 +1,9 @@
 package io.github.queerbric.desertplanet.world.gen;
 
-import java.util.Random;
+import java.util.List;
 import java.util.stream.IntStream;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.github.queerbric.desertplanet.world.feature.DesertPlanetFeatures;
@@ -10,16 +11,18 @@ import io.github.queerbric.desertplanet.world.noise.OpenSimplexNoise;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.noise.OctaveSimplexNoiseSampler;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.ChunkRegion;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.chunk.Chunk;
@@ -172,6 +175,11 @@ public class DesertChunkGenerator extends ChunkGenerator {
 	public void setStructureStarts(DynamicRegistryManager dynamicRegistryManager, StructureAccessor structureAccessor, Chunk chunk, StructureManager structureManager, long worldSeed) {
 		// No structures
 		// TODO: this breaks strongholds
+	}
+
+	@Override
+	public List<SpawnSettings.SpawnEntry> getEntitySpawnList(Biome biome, StructureAccessor accessor, SpawnGroup group, BlockPos pos) {
+		return ImmutableList.of();
 	}
 
 	// TODO: implement these once we have structures
