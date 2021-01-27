@@ -39,7 +39,7 @@ public class MixinPotionItem extends Item {
 			TemperatureComponent temp = DesertPlanet.TEMPERATURE.get(player);
 
 			double temperature = temp.getTemperature();
-			temp.setTemperature(TemperatureHelper.reduceFromWaterBottle(temperature));
+			temp.setTemperature(TemperatureHelper.decreaseFromWaterBottle(temperature));
 
 			System.out.println(temp.getTemperature());
 		}
