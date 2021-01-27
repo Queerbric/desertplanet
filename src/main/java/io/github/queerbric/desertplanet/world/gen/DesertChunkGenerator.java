@@ -1,9 +1,11 @@
 package io.github.queerbric.desertplanet.world.gen;
 
+import java.util.Random;
 import java.util.stream.IntStream;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.github.queerbric.desertplanet.world.feature.DesertPlanetFeatures;
 import io.github.queerbric.desertplanet.world.noise.OpenSimplexNoise;
 
 import net.minecraft.block.BlockState;
@@ -26,6 +28,7 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.StructuresConfig;
+import net.minecraft.world.gen.feature.FeatureConfig;
 
 public class DesertChunkGenerator extends ChunkGenerator {
 	public static final Codec<DesertChunkGenerator> CODEC = RecordCodecBuilder.create(instance ->
@@ -150,8 +153,19 @@ public class DesertChunkGenerator extends ChunkGenerator {
 	}
 
 	@Override
-	public void generateFeatures(ChunkRegion region, StructureAccessor accessor) {
+	public void generateFeatures(ChunkRegion world, StructureAccessor accessor) {
+		ChunkRandom random = new ChunkRandom();
+		ChunkPos pos = new ChunkPos(world.getCenterChunkX(), world.getCenterChunkZ());
+		random.setPopulationSeed(world.getSeed(), pos.x, pos.z);
 
+		if (random.nextInt(64) == 0) {
+			if (Math.abs(pos.x) > 8 || Math.abs(pos.z) > 8) {
+				int x = random.nextInt(16) + pos.x * 16;
+				int z = random.nextInt(16) + pos.z * 16;
+				int y = world.getTopY(Heightmap.Type.OCEAN_FLOOR_WG, x, z);
+				DesertPlanetFeatures.ORE_AREA.generate(world, this, random, new BlockPos(x, y, z), FeatureConfig.DEFAULT);
+			}
+		}
 	}
 
 	@Override

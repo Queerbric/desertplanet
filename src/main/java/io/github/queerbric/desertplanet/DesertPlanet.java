@@ -5,6 +5,7 @@ import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
 import io.github.queerbric.desertplanet.component.TemperatureComponent;
 import io.github.queerbric.desertplanet.item.DesertPlanetItems;
 import io.github.queerbric.desertplanet.world.DesertPlanetGeneratorType;
+import io.github.queerbric.desertplanet.world.feature.DesertPlanetFeatures;
 import io.github.queerbric.desertplanet.world.gen.DesertChunkGenerator;
 
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -22,6 +23,7 @@ public class DesertPlanet implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		DesertPlanetItems.init();
+		DesertPlanetFeatures.init();
 
 		Registry.register(Registry.CHUNK_GENERATOR, id("desertplanet"), DesertChunkGenerator.CODEC);
 
