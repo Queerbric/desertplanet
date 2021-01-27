@@ -6,34 +6,38 @@ import io.github.queerbric.desertplanet.util.TemperatureHelper;
 
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.LightType;
 
 public class TemperatureHandler {
 	public static void tick(ServerWorld world) {
 		for (ServerPlayerEntity player : world.getPlayers()) {
 			TemperatureComponent component = DesertPlanet.TEMPERATURE.get(player);
+			int skyLight = world.getLightLevel(LightType.SKY, player.getBlockPos());
+			long time = world.getTimeOfDay();
+			boolean night = false;
+			if (time % 24000 > 12750) {
+				night = true;
+			}
 
-			if (findSun(world, player.getBlockPos())) {
+			// TODO: smoother interpolation
+			if (skyLight > 11) {
+				double strength = (skyLight - 11) / 4.0;
 				double temperature = component.getTemperature();
-				component.setTemperature(TemperatureHelper.increaseFromSunlight(temperature));
+				if (night) {
+					component.setTemperature(TemperatureHelper.decreaseFromNight(temperature, strength));
+				} else {
+					component.setTemperature(TemperatureHelper.increaseFromSunlight(temperature, strength));
+				}
+
 			} else {
+				double strength = (12 - skyLight) / 12.0;
 				double temperature = component.getTemperature();
-				component.setTemperature(TemperatureHelper.decreaseFromShade(temperature));
+				if (night) {
+					component.setTemperature(TemperatureHelper.handleShadeInNight(temperature, strength));
+				} else {
+					component.setTemperature(TemperatureHelper.handleShadeInDay(temperature, strength));
+				}
 			}
 		}
-	}
-
-	public static boolean findSun(ServerWorld world, BlockPos start) {
-		BlockPos.Mutable mutable = start.mutableCopy();
-		int x = start.getX();
-		int z = start.getZ();
-
-		for (int y = start.getY() + 1; y <= 256; y++) {
-			if (world.getBlockState(mutable.set(x, y, z)).isOpaque()) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 }

@@ -40,8 +40,6 @@ public class MixinPotionItem extends Item {
 
 			double temperature = temp.getTemperature();
 			temp.setTemperature(TemperatureHelper.decreaseFromWaterBottle(temperature));
-
-			System.out.println(temp.getTemperature());
 		}
 	}
 
